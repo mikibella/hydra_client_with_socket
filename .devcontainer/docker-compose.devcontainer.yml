@@ -8,3 +8,10 @@ services:
     volumes:
       - ..:/home/dev/hydra-client-socket
     command: /bin/sh -c "while sleep 100000; do :; done"
+  hydra:
+    image: oryd/hydra:v2.2.0
+    ports:
+      - 4444:4444
+      - 4445:4445
+    environment:
+      - DSN=memory
