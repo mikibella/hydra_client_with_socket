@@ -1,0 +1,10 @@
+services:
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/rust:1-1-bookworm
+    working_dir: /home/dev/hydra-client-socket
+    user: "${USER_UID:-1000}:${USER_GID:-1000}"
+    ports:
+      - 3005:3005
+    volumes:
+      - ..:/home/dev/hydra-client-socket
+    command: /bin/sh -c "while sleep 100000; do :; done"
