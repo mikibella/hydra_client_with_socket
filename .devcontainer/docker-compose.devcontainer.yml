@@ -1,4 +1,18 @@
 services:
+  hydra:
+    image: oryd/hydra:v2.2.0
+    user: "0:0"
+    volumes:
+      - ./hydra_sockets:/var/run/
+    ports:
+      - 4445:4445
+    environment:
+      - DSN=memory
+      - SERVE_PUBLIC_HOST=unix:/var/run/public_socket
+      - SERVE_PUBLIC_SOCKET_OWNER=root
+      - SERVE_PUBLIC_SOCKET_GROUP=root
+      - SERVE_PUBLIC_SOCKET_mode=504
+
   devcontainer:
     image: mcr.microsoft.com/devcontainers/rust:1-1-bookworm
     working_dir: /home/dev/hydra-client-socket
@@ -8,10 +22,3 @@ services:
     volumes:
       - ..:/home/dev/hydra-client-socket
     command: /bin/sh -c "while sleep 100000; do :; done"
-  hydra:
-    image: oryd/hydra:v2.2.0
-    ports:
-      - 4444:4444
-      - 4445:4445
-    environment:
-      - DSN=memory
